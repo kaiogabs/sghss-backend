@@ -1,71 +1,84 @@
+# SGHSS – Sistema de Gerenciamento Hospitalar Simplificado de Saúde (Back-End)
 
-# SGHSS - Backend
+Projeto desenvolvido para a disciplina de **Back-End (2025A1)**, com foco em construção de **API RESTful** utilizando Node.js, Express e Sequelize.  
 
-Projeto de API RESTful desenvolvido para a disciplina **Projetos Multidisciplinar** (Eletiva) do curso de Análise e Desenvolvimento de Sistemas – 2025.1.
+---
 
-## 📚 Descrição
+## 🚀 Tecnologias Utilizadas
+- Node.js  
+- Express  
+- Sequelize (ORM)  
+- SQLite  
+- JWT (jsonwebtoken)  
+- bcryptjs  
+- Postman (para testes de rotas)  
 
-Esta aplicação representa o backend de um sistema de gerenciamento de hospitalização, chamado **SGHSS (Sistema de Gestão Hospitalar Simples e Seguro)**. O projeto foi desenvolvido com foco em consolidar conhecimentos em Engenharia de Software, modelagem de banco de dados, e construção de APIs com Node.js.
+---
 
-## 🚀 Tecnologias utilizadas
-
-- **Node.js**
-- **Express.js**
-- **SQLite3** (banco de dados local)
-- **JavaScript**
-- **Postman** (testes manuais da API)
-
-## 📁 Estrutura do Projeto
-
+## 📂 Estrutura do Projeto
 ```
-sghss-backend/
-├── database/         # Migrations e conexão com SQLite
-├── middlewares/      # Middlewares personalizados (ex: tratamento de erros)
-├── models/           # Requisições ao banco de dados (CRUD)
-├── index.js          # Ponto de entrada da aplicação
-├── package.json      # Dependências e scripts
-└── .gitignore        # Arquivos/pastas ignoradas no repositório
+├── database/       # Configuração do banco de dados SQLite
+├── middlewares/    # Middleware de autenticação JWT
+├── models/         # Modelos Sequelize (Usuario, Paciente)
+├── index.js        # Ponto de entrada da aplicação
+├── package.json    # Dependências e scripts
 ```
 
-## 🧪 Funcionalidades implementadas
+---
 
-- [x] CRUD completo de pacientes
-- [x] Cadastro de hospitalizações
-- [x] Validações básicas de campos
-- [x] Tratamento de erros com middleware
-- [x] Conexão com banco de dados local SQLite
-
-## 🔍 Como executar o projeto
-
-1. Clone o repositório:
+## ⚙️ Como Executar
+1. **Clonar repositório**
    ```bash
    git clone https://github.com/kaiogabs/sghss-backend
+   cd sghss-backend
    ```
 
-2. Instale as dependências:
+2. **Instalar dependências**
    ```bash
    npm install
    ```
 
-3. Inicie o servidor:
+3. **Configurar variáveis de ambiente**
+   - Criar um arquivo `.env` na raiz com a chave:
+     ```
+     JWT_SECRET=seusegredoaqui
+     ```
+   *(caso não crie, o projeto usará o valor padrão definido no código)*
+
+4. **Executar servidor**
    ```bash
    node index.js
    ```
+   → Mensagem esperada no terminal:  
+   *“Banco de dados sincronizado. Servidor rodando na porta 3000”*
 
-4. A API estará disponível em: `http://localhost:3000`
+---
 
-> ⚠️ Certifique-se de que o banco de dados está configurado corretamente dentro da pasta `database`.
+## 🔑 Endpoints Principais
+
+### Autenticação
+- `POST /signup` → Cadastro de novo usuário  
+- `POST /login` → Login e geração de token JWT  
+
+### Pacientes (necessário token JWT)
+- `GET /pacientes` → Lista todos os pacientes  
+- `POST /pacientes` → Cadastra novo paciente  
+- `PUT /pacientes/:id` → Atualiza paciente existente  
+- `DELETE /pacientes/:id` → Remove paciente existente  
+
+---
 
 ## 🧪 Testes
+- Testes realizados via **Postman**, com evidências documentadas no PDF final do projeto.  
+- Casos de teste contemplam:  
+  - Cadastro e login de usuário  
+  - Emissão e validação de JWT  
+  - Acesso negado sem token  
+  - CRUD de pacientes (sucesso e erros)  
 
-Você pode testar os endpoints utilizando ferramentas como o [Postman](https://www.postman.com/) ou [Insomnia](https://insomnia.rest/).
+---
 
 ## 📌 Observações
-
-Este projeto foi desenvolvido como parte da avaliação final da disciplina. O repositório tem como objetivo demonstrar as práticas de backend aprendidas durante o semestre.
-
-## 📎 Documentos complementares
-
-- Diagrama Entidade Relacionamento (DER)
-- Documento PDF do projeto (trilha Back-End)
-- Plano de testes
+- Este projeto tem caráter **didático**, limitado a um protótipo simplificado de Back-End.  
+  - Associação entre usuários e pacientes  
+  - Implementação de testes automatizados (Jest/Supertest)  
